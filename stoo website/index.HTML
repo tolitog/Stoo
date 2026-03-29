@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stoo Chaolong | Palawan's Favorite Red Bowl</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --stoo-red: #B33927;
+            --stoo-cream: #F9F4E8;
+            --stoo-brown: #3E2723;
+            --white: #ffffff;
+            --radius-lg: 40px;
+            --radius-md: 24px;
+        }
+
+        /* --- GLOBAL RESET --- */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            scroll-behavior: smooth; 
+        }
+        
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--stoo-cream); 
+            color: var(--stoo-brown);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 { 
+            font-family: 'Fredoka', sans-serif; 
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background-color: var(--stoo-red);
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--stoo-cream);
+            padding: 20px;
+            border-bottom-left-radius: 80px;
+            border-bottom-right-radius: 80px;
+            position: relative;
+        }
+
+        .logo-box {
+            width: 220px;
+            height: 220px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 8px solid var(--stoo-brown);
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            overflow: hidden; /* Fixes image overlap */
+            padding: 15px;    /* Frames the logo nicely */
+        }
+
+        .logo-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .hero h1 { 
+            font-size: 3.5rem; 
+            line-height: 1.1; 
+            margin-bottom: 1rem; 
+        }
+
+        .hero p { 
+            font-size: 1.2rem; 
+            max-width: 600px; 
+            margin-bottom: 2rem; 
+            opacity: 0.9; 
+        }
+
+        .cta-btn {
+            background-color: var(--stoo-brown);
+            color: var(--white);
+            padding: 18px 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cta-btn:hover { 
+            transform: scale(1.1); 
+            background-color: #2a1a18; 
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 80px 20px; 
+        }
+
+        .section-title { 
+            text-align: center; 
+            font-size: 2.5rem; 
+            margin-bottom: 40px; 
+            color: var(--stoo-red); 
+        }
+
+        /* --- BENTO STORY SECTION --- */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 30px;
+        }
+
+        .arch-frame {
+            height: 550px;
+            border-top-left-radius: 275px;
+            border-top-right-radius: 275px;
+            border-bottom-left-radius: var(--radius-md);
+            border-bottom-right-radius: var(--radius-md);
+            overflow: hidden;
+            border: 10px solid var(--white);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .story-card {
+            background: var(--white);
+            padding: 60px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* --- SIGNATURE MENU GRID --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .menu-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            border: 3px solid transparent;
+            transition: 0.3s ease;
+        }
+
+        .menu-card:hover {
+            border-color: var(--stoo-red);
+            transform: translateY(-10px);
+        }
+
+        .menu-card img { 
+            width: 100%; 
+            border-radius: 15px; 
+            margin-bottom: 15px; 
+        }
+
+        .price { 
+            color: var(--stoo-red); 
+            font-weight: 600; 
+            font-size: 1.3rem; 
+            margin-top: 10px; 
+        }
+
+        /* --- COMMUNITY MASONRY GALLERY --- */
+        .community-gallery {
+            column-count: 3;
+            column-gap: 20px;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            border-radius: var(--radius-md);
+            border: 5px solid var(--white);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .gallery-item:hover { 
+            transform: scale(1.03) rotate(1deg); 
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--white);
+            text-align: center;
+            padding: 60px 20px;
+            border-top-left-radius: 60px;
+            border-top-right-radius: 60px;
+        }
+
+        .socials a { 
+            margin: 0 15px; 
+            text-decoration: none; 
+            color: var(--stoo-red); 
+            font-weight: 600; 
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 992px) {
+            .bento-grid, .menu-grid { grid-template-columns: 1fr; }
+            .community-gallery { column-count: 2; }
+            .hero h1 { font-size: 2.8rem; }
+        }
+
+        @media (max-width: 600px) {
+            .community-gallery { column-count: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="logo-box">
+            <img src="Images/stoo.jpg" alt="Stoo Chaolong Logo">
+        </div>
+        <h1>Warm Bowls.<br>Happy Souls.</h1>
+        <p>Step into the home of authentic Palawan Chaolong. Made with 12-hour slow-simmered broth and plenty of island love.</p>
+        <a href="#menu" class="cta-btn">Hungry? View Menu</a>
+    </header>
+
+    <section class="container">
+        <div class="bento-grid">
+            <div class="arch-frame">
+                <img src="https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&q=80&w=800" alt="Chaolong Pot" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <div class="story-card">
+                <h2 style="color: var(--stoo-red); font-size: 2.5rem; margin-bottom: 20px;">The Stoo Story</h2>
+                <p>It all starts with the "Peace" sign and a passion for broth. In the heart of Palawan, our recipe was born from a mix of traditions—the savory Filipino spirit and the aromatic Vietnamese soul.</p>
+                <p style="margin-top:20px;">Every bowl of <strong>Stoo Chaolong</strong> is a labor of love. We don't cut corners. We don't rush the steam. We just serve happiness, one reddish-gold bowl at a time.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="menu">
+        <h2 class="section-title">The Signature Menu</h2>
+        <div class="menu-grid">
+            <div class="menu-card">
+                <img src="Images/Chaolong.jpg" alt="Beef Chaolong">
+                <h3>Beef Chaolong</h3>
+                <p>Sweet, savory, and silky rice noodles in our famous red broth.</p>
+                <p class="price">₱120.00</p>
+            </div>
+            <div class="menu-card">
+                <img src="Images/garlic bread.jpg" alt="French Bread">
+                <h3>Garlic Bread</h3>
+                <p>The perfect crunch. Toasted with garlic butter.</p>
+                <p class="price">₱65.00</p>
+            </div>
+            <div class="menu-card">
+                <img src="Images/lomi.jpg" alt="Cold Drink">
+                <h3>Lomi</h3>
+                <p>Thick, silky broth. Springy noodles. Rich umami. Generous toppings. Comfort in every spoon.</p>
+                <p class="price">115.00</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">Vibe & Community</h2>
+        <div class="community-gallery">
+            <div class="gallery-item"><img src="Images/vibe 1.jpg" alt="Vibe 1"></div>
+            <div class="gallery-item"><img src="Images/vibe 2.jpg" alt="Vibe 2"></div>
+            <div class="gallery-item"><img src="Images/vibe 3.jpg" alt="Vibe 3"></div>
+            <div class="gallery-item"><img src="Images/vibe 4.jpg" alt="Vibe 4"></div>
+            <div class="gallery-item"><img src="Images/vibe 5.jpg" alt="Vibe 5"></div>
+            <div class="gallery-item"><img src="Images/vibe 6.jpg" alt="Vibe 6"></div>
+        </div>
+    </section>
+
+    <footer>
+        <h2 style="color: var(--stoo-red);">Stoo Chaolong Store</h2>
+        <p> San Jose, Puerto Princesa, Palawan</p>
+        <div class="socials" style="margin-top: 20px;">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">TikTok</a>
+        </div>
+        <p style="margin-top: 40px; font-size: 0.8rem; color: #999;">&copy; 2026 Stoo Chaolong Store. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
