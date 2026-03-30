@@ -4,7 +4,7 @@
  */
 
 const businessData = {
-    facebook: "https://facebook.com/your-page",
+    facebook: "https://web.facebook.com/s2OfficialPage",
     instagram: "https://instagram.com/your-profile",
     tiktok: "https://tiktok.com/@your-handle",
     googleMaps: "https://maps.app.goo.gl/XLPErcMpAxs1t8ox9",
