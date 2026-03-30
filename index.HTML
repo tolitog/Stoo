@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stoo Chaolong | Palawan's Favorite Red Bowl</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ================================================================
+           TOKENS & RESET
+        ================================================================ */
+        :root {
+            --stoo-red:   #B33927;
+            --stoo-cream: #F9F4E8;
+            --stoo-brown: #3E2723;
+            --white:      #ffffff;
+            --radius-lg:  32px;
+            --radius-md:  20px;
+            --radius-sm:  12px;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--stoo-cream);
+            color: var(--stoo-brown);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Fredoka', sans-serif; }
+        img { max-width: 100%; display: block; }
+
+        /* ================================================================
+           1. STICKY NAV — mobile base
+        ================================================================ */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: transparent;
+            transition: background 0.35s, padding 0.35s, box-shadow 0.35s;
+        }
+
+        .navbar.scrolled {
+            background: rgba(179, 57, 39, 0.96);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 3px 16px rgba(0,0,0,0.18);
+            padding: 8px 16px;
+        }
+
+        .nav-logo {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1rem;
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s;
+            white-space: nowrap;
+        }
+        .navbar.scrolled .nav-logo { opacity: 1; pointer-events: auto; }
+
+        .nav-links { display: flex; gap: 6px; list-style: none; }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 6px 11px;
+            border-radius: 50px;
+            border: 1.5px solid rgba(255,255,255,0.35);
+            transition: background 0.2s, border-color 0.2s;
+            min-height: 36px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.7); }
+
+        /* ================================================================
+           HERO — mobile base
+        ================================================================ */
+        .hero {
+            background: var(--stoo-red);
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--stoo-cream);
+            padding: 100px 24px 56px;
+            border-bottom-left-radius: 48px;
+            border-bottom-right-radius: 48px;
+        }
+
+        .logo-box {
+            width: 140px; height: 140px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 5px solid var(--stoo-brown);
+            margin-bottom: 1.25rem;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+            overflow: hidden; flex-shrink: 0;
+        }
+        .logo-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        .hero h1 { font-size: 2.1rem; line-height: 1.1; margin-bottom: 0.85rem; }
+        .hero p  { font-size: 0.95rem; max-width: 340px; margin-bottom: 1.75rem; opacity: 0.9; }
+
+        .cta-btn {
+            background: var(--stoo-brown);
+            color: var(--white);
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            transition: transform 0.25s cubic-bezier(0.175,0.885,0.32,1.275), background 0.2s;
+        }
+        .cta-btn:hover { transform: scale(1.05); background: #2a1a18; }
+
+        /* ================================================================
+           2. WHY STOO STRIP — 2×2 on mobile
+        ================================================================ */
+        .features-wrap { background: var(--stoo-cream); padding: 0 16px; }
+
+        .features-strip {
+            background: var(--stoo-brown);
+            border-radius: var(--radius-md);
+            padding: 32px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px 14px;
+            text-align: center;
+            color: var(--white);
+            transform: translateY(-28px);
+            box-shadow: 0 14px 36px rgba(62,39,35,0.22);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-item .icon { font-size: 2rem; margin-bottom: 6px; display: block; }
+        .feature-item h3    { font-size: 0.95rem; margin-bottom: 4px; }
+        .feature-item p     { font-size: 0.76rem; opacity: 0.78; line-height: 1.5; }
+
+        /* ================================================================
+           LAYOUT
+        ================================================================ */
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 16px; }
+        .section-title { text-align: center; font-size: 1.85rem; margin-bottom: 22px; color: var(--stoo-red); }
+
+        /* ================================================================
+           STORY BENTO — stacked on mobile
+        ================================================================ */
+        .bento-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+
+        .arch-frame {
+            height: 280px;
+            border-top-left-radius: 140px;
+            border-top-right-radius: 140px;
+            border-bottom-left-radius: var(--radius-md);
+            border-bottom-right-radius: var(--radius-md);
+            overflow: hidden;
+            border: 6px solid var(--white);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        .arch-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        .story-card {
+            background: var(--white);
+            padding: 26px 20px;
+            border-radius: var(--radius-md);
+        }
+        .story-card h2  { color: var(--stoo-red); font-size: 1.9rem; margin-bottom: 12px; }
+        .story-card p   { font-size: 0.9rem; }
+        .story-card p + p { margin-top: 12px; }
+
+        /* ================================================================
+           3. MENU — single col on mobile, hover on desktop
+        ================================================================ */
+        .menu-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+
+        .menu-card {
+            background: var(--white);
+            padding: 18px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            border: 3px solid transparent;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            overflow: hidden;
+        }
+        .menu-card:active { transform: scale(0.98); }
+
+        .menu-card img {
+            width: 100%; height: 190px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+            transition: transform 0.4s;
+        }
+        .menu-card h3 { font-size: 1.15rem; }
+        .menu-card p  { font-size: 0.83rem; margin-top: 4px; }
+        .price        { color: var(--stoo-red); font-weight: 600; font-size: 1.15rem; margin-top: 8px; }
+
+        /* ================================================================
+           GALLERY — 2-col on mobile
+        ================================================================ */
+        .community-gallery { column-count: 2; column-gap: 10px; }
+        .gallery-item { break-inside: avoid; margin-bottom: 10px; }
+        .gallery-item img {
+            width: 100%;
+            border-radius: var(--radius-sm);
+            border: 3px solid var(--white);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        /* ================================================================
+           5. TESTIMONIALS — single col on mobile
+        ================================================================ */
+        .testimonials-section { background: var(--stoo-brown); padding: 48px 16px; }
+        .testimonials-section .section-title { color: var(--stoo-cream); }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+            max-width: 1200px; margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.07);
+            border: 1.5px solid rgba(255,255,255,0.12);
+            border-radius: var(--radius-md);
+            padding: 22px 18px;
+            color: var(--stoo-cream);
+        }
+        .stars { color: #f5c842; font-size: 0.95rem; margin-bottom: 10px; letter-spacing: 2px; }
+        .testimonial-card blockquote {
+            font-size: 0.86rem; line-height: 1.7;
+            opacity: 0.88; font-style: italic;
+            border: none; padding: 0; margin: 0;
+        }
+        .reviewer { margin-top: 12px; font-weight: 600; font-size: 0.78rem; opacity: 0.6; }
+
+        /* ================================================================
+           4. OPERATING HOURS — stacked on mobile
+        ================================================================ */
+        .hours-bar {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 22px 18px;
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+        }
+        .hours-title { font-family: 'Fredoka', sans-serif; font-size: 1.25rem; color: var(--stoo-red); }
+        .hours-grid  { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; }
+
+        .hours-pill {
+            background: var(--stoo-cream);
+            border-radius: 50px;
+            padding: 6px 13px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            color: var(--stoo-brown);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .hours-pill.open-pill   { background: #e8f5e9; color: #2e7d32; }
+        .hours-pill.closed-pill { background: #ffebee; color: #c62828; }
+
+        .open-dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: #43a047; flex-shrink: 0;
+            animation: pulse-dot 1.5s infinite;
+        }
+        .closed-dot { width: 7px; height: 7px; border-radius: 50%; background: #c62828; flex-shrink: 0; }
+
+        @keyframes pulse-dot {
+            0%,100% { opacity:1; transform:scale(1); }
+            50%      { opacity:0.4; transform:scale(1.5); }
+        }
+
+        /* MAP */
+        .map-wrapper {
+            width: 100%; height: 300px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 6px solid var(--white);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        .map-wrapper iframe { width: 100%; height: 100%; border: none; }
+
+        /* ================================================================
+           FOOTER
+        ================================================================ */
+        footer {
+            background: var(--white);
+            text-align: center;
+            padding: 38px 20px 30px;
+            border-top-left-radius: 32px;
+            border-top-right-radius: 32px;
+        }
+        footer h2       { color: var(--stoo-red); font-size: 1.5rem; }
+        .address-wrapper { margin-top: 10px; }
+        .shop-address {
+            text-decoration: underline; cursor: pointer;
+            font-weight: 500; font-size: 0.88rem; display: inline;
+        }
+        #copy-btn {
+            background: var(--stoo-brown); color: white;
+            border: none; border-radius: 10px;
+            padding: 4px 10px; font-size: 0.72rem;
+            cursor: pointer; margin-left: 8px;
+            vertical-align: middle; transition: background 0.2s;
+        }
+        .socials         { margin-top: 16px; }
+        .socials a {
+            margin: 0 7px; text-decoration: none;
+            color: var(--stoo-red); font-weight: 600; font-size: 0.86rem;
+        }
+        .footer-copy { margin-top: 28px; font-size: 0.72rem; color: #aaa; }
+
+        /* ================================================================
+           6. FAB
+        ================================================================ */
+        .fab-wrapper {
+            position: fixed; bottom: 20px; right: 16px;
+            z-index: 999;
+            display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+        }
+        .fab-menu {
+            display: flex; flex-direction: column; align-items: flex-end; gap: 7px;
+            opacity: 0; pointer-events: none;
+            transform: translateY(8px);
+            transition: opacity 0.22s, transform 0.22s;
+        }
+        .fab-menu.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+        .fab-option {
+            display: inline-flex; align-items: center; gap: 8px;
+            text-decoration: none;
+            background: var(--white); color: var(--stoo-brown);
+            font-weight: 600; font-size: 0.82rem;
+            padding: 10px 14px 10px 12px;
+            border-radius: 50px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+            white-space: nowrap;
+            min-height: 44px;
+        }
+        .fab-option:hover { transform: scale(1.04); }
+        .fab-icon { font-size: 1.2rem; }
+
+        .fab-main {
+            width: 52px; height: 52px; border-radius: 50%;
+            background: var(--stoo-red); color: white;
+            font-size: 1.5rem;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border: none;
+            box-shadow: 0 5px 18px rgba(179,57,39,0.45);
+            transition: transform 0.3s, background 0.2s;
+            line-height: 1;
+        }
+        .fab-main:hover { background: var(--stoo-brown); }
+        .fab-main.open  { transform: rotate(45deg); }
+
+        /* ================================================================
+           7. BACK TO TOP
+        ================================================================ */
+        .back-to-top {
+            position: fixed; bottom: 84px; right: 16px;
+            z-index: 998;
+            width: 40px; height: 40px; border-radius: 50%;
+            background: var(--stoo-brown); color: white;
+            font-size: 1rem;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+            opacity: 0; pointer-events: none;
+            transform: translateY(8px);
+            transition: opacity 0.3s, transform 0.3s, background 0.2s;
+        }
+        .back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .back-to-top:hover   { background: var(--stoo-red); }
+
+        /* ================================================================
+           8. SCROLL REVEAL
+        ================================================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible  { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1  { transition-delay: 0.08s; }
+        .reveal-delay-2  { transition-delay: 0.16s; }
+        .reveal-delay-3  { transition-delay: 0.24s; }
+
+        /* ================================================================
+           TABLET — 600px+
+        ================================================================ */
+        @media (min-width: 600px) {
+            /* Menu: 3-col pill row on tablet */
+            .menu-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+            .menu-card img { height: 160px; }
+
+            /* Testimonials: row scroll on tablet */
+            .testimonials-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        }
+
+        /* ================================================================
+           DESKTOP — 768px+
+        ================================================================ */
+        @media (min-width: 768px) {
+            /* Nav */
+            .navbar { padding: 16px 32px; }
+            .navbar.scrolled { padding: 10px 32px; }
+            .nav-links a { font-size: 0.88rem; padding: 8px 18px; }
+
+            /* Hero */
+            .hero {
+                border-bottom-left-radius: 80px;
+                border-bottom-right-radius: 80px;
+            }
+            .logo-box { width: 200px; height: 200px; }
+            .hero h1  { font-size: 3.2rem; }
+            .hero p   { font-size: 1.05rem; max-width: 560px; }
+
+            /* Features — 4 col */
+            .features-wrap   { padding: 0 24px; }
+            .features-strip  {
+                grid-template-columns: repeat(4, 1fr);
+                padding: 40px 36px; gap: 30px;
+            }
+            .feature-item .icon { font-size: 2.4rem; }
+            .feature-item h3    { font-size: 1.1rem; }
+            .feature-item p     { font-size: 0.85rem; }
+
+            /* Container */
+            .container    { padding: 64px 24px; }
+            .section-title { font-size: 2.2rem; margin-bottom: 28px; }
+
+            /* Story */
+            .bento-grid  { grid-template-columns: 1fr 1.2fr; gap: 24px; }
+            .arch-frame  {
+                height: 500px;
+                border-top-left-radius: 250px;
+                border-top-right-radius: 250px;
+            }
+            .story-card  { padding: 40px 32px; }
+            .story-card h2 { font-size: 2.5rem; }
+
+            /* Menu hover */
+            .menu-grid   { grid-template-columns: repeat(3, 1fr); gap: 22px; }
+            .menu-card   { padding: 22px; }
+            .menu-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 40px rgba(179,57,39,0.14);
+                border-color: var(--stoo-red);
+            }
+            .menu-card:hover img { transform: scale(1.04); }
+            .menu-card img { height: 220px; }
+
+            /* Gallery 3-col */
+            .community-gallery { column-count: 3; column-gap: 14px; }
+            .gallery-item img  { border-radius: var(--radius-md); }
+
+            /* Testimonials */
+            .testimonials-section { padding: 70px 24px; }
+
+            /* Hours row */
+            .hours-bar {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+                padding: 26px 30px;
+                gap: 20px;
+            }
+            .hours-grid { justify-content: flex-end; }
+
+            /* Map taller */
+            .map-wrapper { height: 460px; border-radius: var(--radius-lg); }
+
+            /* FAB / back-to-top */
+            .fab-wrapper  { bottom: 28px; right: 24px; }
+            .back-to-top  { bottom: 98px; right: 24px; }
+            .fab-main     { width: 56px; height: 56px; }
+        }
+
+        /* ================================================================
+           LARGE DESKTOP — 1024px+
+        ================================================================ */
+        @media (min-width: 1024px) {
+            .hero h1 { font-size: 3.8rem; }
+            .hero p  { font-size: 1.1rem; max-width: 620px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <a href="#" class="nav-logo">🍜 Stoo Chaolong</a>
+        <ul class="nav-links">
+            <li><a href="#story">Story</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#find-us">Find Us</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="logo-box">
+            <img src="Images/stoo.jpg" alt="Stoo Chaolong Logo">
+        </div>
+        <h1>Warm Bowls.<br>Happy Souls.</h1>
+        <p>Step into the home of authentic Palawan Chaolong. Made with 12-hour slow-simmered broth and plenty of island love.</p>
+        <a href="#menu" class="cta-btn">Hungry? View Menu</a>
+    </header>
+
+    <div class="features-wrap">
+        <div class="features-strip reveal">
+            <div class="feature-item">
+                <span class="icon">🍲</span>
+                <h3>12-Hour Broth</h3>
+                <p>Slow-simmered every morning for deep, rich flavor.</p>
+            </div>
+            <div class="feature-item">
+                <span class="icon">🌿</span>
+                <h3>Fresh Daily</h3>
+                <p>Sourced fresh every day — no shortcuts, ever.</p>
+            </div>
+            <div class="feature-item">
+                <span class="icon">🏝️</span>
+                <h3>Island-Made</h3>
+                <p>Born and brewed in the heart of Palawan.</p>
+            </div>
+            <div class="feature-item">
+                <span class="icon">❤️</span>
+                <h3>Community First</h3>
+                <p>A bowl for locals, visitors, and everyone in between.</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="container" id="story">
+        <div class="bento-grid">
+            <div class="arch-frame reveal">
+                <img src="https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&q=80&w=800" alt="Chaolong Pot">
+            </div>
+            <div class="story-card reveal reveal-delay-1">
+                <h2>The Stoo Story</h2>
+                <p>It all starts with the "Peace" sign and a passion for broth. In the heart of Palawan, our recipe was born from a mix of traditions — the savory Filipino spirit and the aromatic Vietnamese soul.</p>
+                <p>Every bowl of <strong>Stoo Chaolong</strong> is a labor of love.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="menu">
+        <h2 class="section-title reveal">The Signature Menu</h2>
+        <div class="menu-grid">
+            <div class="menu-card reveal reveal-delay-1">
+                <img src="Images/Chaolong.jpg" alt="Beef Chaolong">
+                <h3>Beef Chaolong</h3>
+                <p>Sweet, savory, and silky rice noodles.</p>
+                <p class="price">₱120.00</p>
+            </div>
+            <div class="menu-card reveal reveal-delay-2">
+                <img src="Images/garlic bread.jpg" alt="Garlic Bread">
+                <h3>Garlic Bread</h3>
+                <p>The perfect crunch.</p>
+                <p class="price">₱65.00</p>
+            </div>
+            <div class="menu-card reveal reveal-delay-3">
+                <img src="Images/lomi.jpg" alt="Lomi">
+                <h3>Lomi</h3>
+                <p>Thick, silky broth. Rich umami.</p>
+                <p class="price">₱115.00</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title reveal">Vibe & Community</h2>
+        <div class="community-gallery reveal">
+            <div class="gallery-item"><img src="Images/vibe 1.jpg" alt="Vibe 1"></div>
+            <div class="gallery-item"><img src="Images/vibe 2.jpg" alt="Vibe 2"></div>
+            <div class="gallery-item"><img src="Images/vibe 3.jpg" alt="Vibe 3"></div>
+            <div class="gallery-item"><img src="Images/vibe 4.jpg" alt="Vibe 4"></div>
+            <div class="gallery-item"><img src="Images/vibe 5.jpg" alt="Vibe 5"></div>
+            <div class="gallery-item"><img src="Images/vibe 6.jpg" alt="Vibe 6"></div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <h2 class="section-title reveal">What Locals Are Saying</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card reveal reveal-delay-1">
+                <div class="stars">★★★★★</div>
+                <blockquote>"The broth hits different — you can really taste how long it's been simmered. Best chaolong in Palawan, hands down."</blockquote>
+                <div class="reviewer">— Maria L., Puerto Princesa</div>
+            </div>
+            <div class="testimonial-card reveal reveal-delay-2">
+                <div class="stars">★★★★★</div>
+                <blockquote>"Came in after island-hopping, starving and tired. One bowl of Stoo and I was completely restored. Obsessed."</blockquote>
+                <div class="reviewer">— Renz M., Traveler</div>
+            </div>
+            <div class="testimonial-card reveal reveal-delay-3">
+                <div class="stars">★★★★★</div>
+                <blockquote>"The garlic bread with the chaolong is an unbeatable combo. We go every weekend without fail. The staff is so warm too!"</blockquote>
+                <div class="reviewer">— Jessa & Kevin, Locals</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="find-us">
+        <h2 class="section-title reveal">Find Us</h2>
+        <div class="hours-bar reveal">
+            <div class="hours-title">🕐 Operating Hours</div>
+            <div class="hours-grid">
+                <div class="hours-pill" id="open-status-pill">
+                    <span id="status-dot"></span>
+                    <span id="open-status-text">Checking…</span>
+                </div>
+                <div class="hours-pill">Mon – Fri &nbsp; 8AM – 9PM</div>
+                <div class="hours-pill">Sat – Sun &nbsp; 7AM – 10PM</div>
+            </div>
+        </div>
+        <div class="map-wrapper reveal">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7000!2d118.7487814!3d9.7935641!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33b5630078110035%3A0xe9bdd16cb174fdb5!2sStoo%20Chaolong!5e0!3m2!1sen!2sph!4v1710000000000!5m2!1sen!2sph"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>
+
+    <footer>
+        <h2>Stoo Chaolong Store</h2>
+        <div class="address-wrapper">
+            <p class="shop-address">📍 San Jose, Puerto Princesa, Palawan</p>
+            <button id="copy-btn">Copy</button>
+        </div>
+        <div class="socials">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">TikTok</a>
+        </div>
+        <p class="footer-copy">© 2026 Stoo Chaolong Store. All Rights Reserved.</p>
+    </footer>
+
+    <div class="fab-wrapper">
+        <div class="fab-menu" id="fab-menu">
+            <a href="https://facebook.com/your-page" target="_blank" class="fab-option">
+                <span class="fab-icon">📘</span> Facebook
+            </a>
+            <a href="https://instagram.com/your-profile" target="_blank" class="fab-option">
+                <span class="fab-icon">📸</span> Instagram
+            </a>
+            <a href="https://tiktok.com/@your-handle" target="_blank" class="fab-option">
+                <span class="fab-icon">🎵</span> TikTok
+            </a>
+        </div>
+        <button class="fab-main" id="fab-main" aria-label="Connect with us" aria-expanded="false">＋</button>
+    </div>
+
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to top">↑</a>
+
+    <script src="script.js"></script>
+</body>
+</html>
